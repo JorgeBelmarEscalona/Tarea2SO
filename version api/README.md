@@ -1,3 +1,5 @@
+## Descripción
+
 Este programa en C++ utiliza las bibliotecas OpenCV y OpenMP para procesar imágenes. 
 Toma una imagen de entrada, la convierte a escala de grises, procesa la imagen en paralelo usando múltiples hilos, muestra y guarda la imagen en escala de grises, y mide el tiempo de procesamiento. 
 
