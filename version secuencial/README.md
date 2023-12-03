@@ -1,4 +1,4 @@
-## Descripcion
+## Descripción
 
 Este programa en C++ utiliza la biblioteca OpenCV para procesar imágenes. 
 
