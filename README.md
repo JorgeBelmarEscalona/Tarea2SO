@@ -23,3 +23,35 @@ version secuencial funcional y dos versiones paralelas, una de ellas utilizando 
 clase thread y otra utilizando la API OpenMP (Revisar practicos de la Leccion 4 en moodle).
 Para leer una imagen y manipularla como una matriz de pixeles utilizar la libreria OpenCV.
 En Debian (y distribuciones basadas en) debe instalar el paquete libopencv-dev.
+
+```
+
+## Ejecucion
+
+Para la ejecucion de este programa se deberan escribir los siguientes comando en terminal para cada directorio.
+
+```bash
+Para la version secuencial:
+
+1°: Make
+2°: ./version_secuencial <ruta_imagen> <ruta_imagen_escala_grises>
+```
+
+```bash
+Para la version Paralela con threads
+
+1°: Make
+2°:./version_thread <ruta_imagen> <ruta_imagen_escala_grises> <num_hebras>
+```
+
+
+```bash
+Para la version Paralela con la API OpenMP
+
+1°:Make
+2°:./version_api <ruta_imagen> <ruta_imagen_escala_grises> <num_hebras>
+```
+
+
+
+
