@@ -1,17 +1,17 @@
 # Nombre del ejecutable
-TARGET = mi_programa
+TARGET = version_api
 
 # Compilador
 CC = g++
 
 # Opciones de compilación
-CFLAGS = -std=c++11 `pkg-config --cflags opencv4`
+CFLAGS = -std=c++11 `pkg-config --cflags opencv4` -fopenmp
 
 # Librerías
 LIBS = `pkg-config --libs opencv4`
 
 # Archivos fuente
-SRCS = test1.cpp
+SRCS = testopenmp.cpp
 
 # Archivos objeto
 OBJS = $(SRCS:.cpp=.o)
@@ -22,7 +22,7 @@ OBJS = $(SRCS:.cpp=.o)
 
 # Regla para compilar el ejecutable
 $(TARGET): $(OBJS)
-	$(CC) $(OBJS) $(LIBS) -o $(TARGET)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(TARGET)
 
 # Regla para limpiar los archivos objeto y el ejecutable
 clean:

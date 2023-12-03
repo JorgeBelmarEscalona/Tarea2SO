@@ -7,9 +7,15 @@ using namespace cv;
 using namespace std;
 using namespace std::chrono;
 
-int main() {
+int main(int argc, char** argv) {
+    // Verificar si se proporcionan los argumentos correctos.
+    if (argc != 4) {
+        cout << "Uso: ./programa <ruta_imagen> <ruta_imagen_escala_grises> <num_hebras>" << endl;
+        return -1;
+    }
+
     // Leer el archivo de imagen.
-    Mat image = imread("imagenacolor.jpg", IMREAD_COLOR);
+    Mat image = imread(argv[1], IMREAD_COLOR);
 
     // Verificar si la imagen se carga correctamente.
     if (image.empty()) {
@@ -23,6 +29,9 @@ int main() {
     // Convertir la imagen a escala de grises.
     Mat grayscaleImage;
     cvtColor(image, grayscaleImage, COLOR_BGR2GRAY);
+
+    // Establecer el número de hilos.
+    omp_set_num_threads(atoi(argv[3]));
 
     // Leer cada píxel (píxel en escala de grises).
     #pragma omp parallel for // Directiva OpenMP para paralelizar el bucle
@@ -39,8 +48,12 @@ int main() {
     auto duration = duration_cast<microseconds>(stop - start);
     cout << "Tiempo de procesamiento de la imagen: " << duration.count() << " microsegundos." << endl;
 
-    // Mostrar la imagen en escala de grises (opcional).
-    imshow("Grayscale Image", grayscaleImage);
+    // Guardar la imagen en escala de grises.
+    imwrite(argv[2], grayscaleImage);
+
+    // Mostrar la imagen en escala de grises.
+    namedWindow("Imagen en escala de grises", WINDOW_NORMAL);
+    imshow("Imagen en escala de grises", grayscaleImage);
     waitKey(0);
 
     return 0;

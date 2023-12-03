@@ -2,6 +2,7 @@
 #include <opencv2/opencv.hpp>
 #include <chrono>
 #include <thread>
+#include <vector>
 
 using namespace cv;
 using namespace std;
@@ -16,9 +17,15 @@ void processImage(Mat image, int startRow, int endRow) {
     }
 }
 
-int main() {
+int main(int argc, char** argv) {
+    // Verificar si se proporcionaron los argumentos correctos.
+    if (argc != 4) {
+        cout << "Uso: " << argv[0] << " <ruta de la imagen> <ruta de la imagen en escala de grises> <número de hilos>" << endl;
+        return -1;
+    }
+
     // Leer el archivo de imagen.
-    Mat image = imread("imagenacolor.jpg", IMREAD_COLOR);
+    Mat image = imread(argv[1], IMREAD_COLOR);
 
     // Verificar si la imagen se carga correctamente.
     if (image.empty()) {
@@ -33,21 +40,24 @@ int main() {
     Mat grayscaleImage;
     cvtColor(image, grayscaleImage, COLOR_BGR2GRAY);
 
+    // Guardar la imagen en escala de grises.
+    imwrite(argv[2], grayscaleImage);
+
     // Iniciar el temporizador.
     auto start = high_resolution_clock::now();
 
-    // Crear 4 hilos y dividir la imagen en 4 partes para procesar.
-    int rowsPerThread = grayscaleImage.rows / 4;
-    thread t1(processImage, grayscaleImage, 0, rowsPerThread);
-    thread t2(processImage, grayscaleImage, rowsPerThread, 2 * rowsPerThread);
-    thread t3(processImage, grayscaleImage, 2 * rowsPerThread, 3 * rowsPerThread);
-    thread t4(processImage, grayscaleImage, 3 * rowsPerThread, grayscaleImage.rows);
+    // Crear hilos y dividir la imagen en partes para procesar.
+    int numThreads = stoi(argv[3]);
+    vector<thread> threads(numThreads);
+    int rowsPerThread = grayscaleImage.rows / numThreads;
+    for (int i = 0; i < numThreads; i++) {
+        threads[i] = thread(processImage, grayscaleImage, i * rowsPerThread, (i + 1) * rowsPerThread);
+    }
 
     // Esperar a que todos los hilos terminen.
-    t1.join();
-    t2.join();
-    t3.join();
-    t4.join();
+    for (auto& t : threads) {
+        t.join();
+    }
 
     // Detener el temporizador.
     auto stop = high_resolution_clock::now();

@@ -6,9 +6,15 @@ using namespace cv;
 using namespace std;
 using namespace std::chrono;
 
-int main() {
+int main(int argc, char** argv) {
+    // Verificar si se proporcionaron los argumentos correctos.
+    if (argc != 3) {
+        cout << "Uso: " << argv[0] << " <imagen_entrada> <imagen_salida>" << endl;
+        return -1;
+    }
+
     // Leer el archivo de imagen.
-    Mat image = imread("imagenacolor.jpg", IMREAD_COLOR);
+    Mat image = imread(argv[1], IMREAD_COLOR);
 
     // Verificar si la imagen se carga correctamente.
     if (image.empty()) {
@@ -40,9 +46,13 @@ int main() {
     auto duration = duration_cast<microseconds>(stop - start);
     cout << "Tiempo de procesamiento de la imagen: " << duration.count() << " microsegundos." << endl;
 
-    // Mostrar la imagen en escala de grises (opcional).
-    imshow("Grayscale Image", grayscaleImage);
+    // Mostrar la imagen en escala de grises.
+    namedWindow("Imagen en escala de grises", WINDOW_NORMAL);
+    imshow("Imagen en escala de grises", grayscaleImage);
     waitKey(0);
+
+    // Guardar la imagen en escala de grises.
+    imwrite(argv[2], grayscaleImage);
 
     return 0;
 }
