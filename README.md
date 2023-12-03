@@ -14,7 +14,7 @@ El repositorio contiene la Tarea 2 del curso de Sistemas Operativos impartido po
 
 
 
---bash 
+```bash 
 Supongamos que tiene una imagen a color representada como una matriz bidimensional
 de p´ıxeles. La tarea consiste en aplicar un filtro a dicha imagen para transformala a escala
 de grises (sin utilizar alguna funci´on o m´etodo disponible, debe ser mediante la
