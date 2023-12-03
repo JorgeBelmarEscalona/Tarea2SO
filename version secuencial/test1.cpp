@@ -16,6 +16,9 @@ int main() {
         return -1;
     }
 
+    // Mostrar las dimensiones de la imagen.
+    cout << "Dimensiones de la imagen: " << image.rows << "x" << image.cols << endl;
+
     // Iniciar el temporizador.
     auto start = high_resolution_clock::now();
 

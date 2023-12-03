@@ -26,6 +26,9 @@ int main() {
         return -1;
     }
 
+    // Mostrar las dimensiones de la imagen.
+    cout << "Dimensiones de la imagen: " << image.rows << "x" << image.cols << endl;
+
     // Convertir la imagen a escala de grises.
     Mat grayscaleImage;
     cvtColor(image, grayscaleImage, COLOR_BGR2GRAY);
