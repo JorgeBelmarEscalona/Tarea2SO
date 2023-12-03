@@ -1,6 +1,8 @@
 # Tarea2SO
 
 Autores: Jorge Belmar, Cristian Contreras
+
+
 Grupo: N°7
 
 
