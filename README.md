@@ -26,7 +26,7 @@ En Debian (y distribuciones basadas en) debe instalar el paquete libopencv-dev.
 
 ```
 
-## Ejecucion
+## Ejecución
 
 Para la ejecucion de este programa se deberan escribir los siguientes comando en terminal para cada directorio.
 
